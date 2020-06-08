@@ -64,4 +64,14 @@ function animateSlides() {
   });
 }
 
+function cursor(e) {
+  let mouse = document.querySelector(".cursor");
+  mouse.style.top = e.pageY + "px";
+  mouse.style.left = e.pageX + "px";
+  console.log(e);
+}
+
+window.addEventListener("mousemove", cursor);
+window.addEventListener("mouseover", activeCursor);
+
 animateSlides();
