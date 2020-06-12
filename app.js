@@ -139,6 +139,10 @@ barba.init({
           { y: "0%", ease: "power2.inOut" }
         );
       },
+      beforeLeave() {
+        controller.destroy();
+        detailScene.destroy();
+      },
     },
   ],
   transitions: [
@@ -181,10 +185,12 @@ function detailAnimation() {
     let nextSlide = slides.length - 1 === index ? "end" : slides[index + 1];
     const nextImg = nextSlide.querySelector("img");
     slideTl.fromTo(slide, { opacity: 1 }, { opacity: 0 });
+    slideTl.fromTo(nextSlide, { opacity: 0 }, { opacity: 1 }, "-=1");
+    slideTl.fromTo(nextImg, { x: "50%" }, { x: "0%" });
 
     //Scene
     detailScene = new ScrollMagic.Scene({
-      trigger: slide,
+      triggerElement: slide,
       duration: "100%",
       triggerHook: 0,
     })
@@ -195,7 +201,7 @@ function detailAnimation() {
         colorTrigger: "white",
         name: "detailScene",
       })
-      .addTo(conteoller);
+      .addTo(controller);
   });
 }
 
